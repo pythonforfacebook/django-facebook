@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
 {% block facebook_code %}
+  FB.Event.subscribe('auth.logout', function(response) {
+    window.location.reload()
+  });
+
   FB.getLoginStatus(function(response) {
     var update = $('#getLoginStatus')
     if (response.session) {
       update.text('response.session.uid = ' + response.session.uid)
     } else {
       update.text('response.session = null')
+      
+      FB.Event.subscribe('auth.login', function(response) {
+        window.location.reload()
+      });
     }
   });
 {% endblock %}

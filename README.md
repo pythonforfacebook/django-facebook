@@ -18,14 +18,14 @@ the following settings:
 Templates:
 ---------
 A few helpers for using the Javascript SDK can be enabled by adding
-this to your base template in the <head> section:
+this to your base template in the ``<head>`` section:
 
     {% load facebook %}
     {% facebook_init %}
       {% block facebook_code %}{% endblock %}
     {% endfacebook %}
 
-And this should be added just before your </html> tag:
+And this should be added just before your ``</html>`` tag:
 
     {% facebook_load %}
     
@@ -79,11 +79,11 @@ If a user accesses your site with a valid facebook cookie, a user
 account is automatically created or retrieved based on the facebook UID.
 
 To use the backend, add this to your AUTHENTICATION_BACKENDS:
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend'
   
 Don't forget to include the default backend if you want to use standard
 logins for users as well:
-    'django_facebook.auth.FacebookBackend',
+    'django_facebook.auth.FacebookBackend'
 
 
 Decorators:

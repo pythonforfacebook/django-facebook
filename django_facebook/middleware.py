@@ -5,8 +5,8 @@ import facebook
 class DjangoFacebook(object):
     """ Simple accessor object for the Facebook user. """
     def __init__(self, user):
-        self.uid = user['uid']
         self.user = user
+        self.uid = user['uid']
         self.graph = facebook.GraphAPI(user['access_token'])
 
 
@@ -39,19 +39,27 @@ class FacebookDebugTokenMiddleware(object):
 
 
 class FacebookMiddleware(object):
-    """ Transparently integrate Django accounts with Facebook. """
+    """ Transparently integrate Django accounts with Facebook. 
+    
+    If the user presents with a valid facebook cookie, then we want them to be
+    automatically logged in as that user. We rely on the authentication backend
+    to create the user if it does not exist.
+    
+    We do not want to persist the facebook login, so we avoid calling auth.login()
+    with the rationale that if they log out via fb:login-button we want them to
+    be logged out of Django also.
+    
+    We also want to allow people to log in with other backends, which means we
+    need to be careful before replacing request.user.
+    """
     def process_request(self, request):
-        user = None
-        request.facebook = None
         fb_user = facebook.get_user_from_cookie(request.COOKIES,
             settings.FACEBOOK_APP_ID, settings.FACEBOOK_SECRET_KEY)
-        
-        if fb_user:
-          request.facebook = DjangoFacebook(fb_user)
-          user = auth.authenticate(fb_uid=fb_user['uid'])
+        request.facebook = DjangoFacebook(fb_user) if fb_user else None
 
-        if user:
-            request.user = user
-            auth.login(request, user)
+        if fb_user and request.user.is_anonymous():
+            user = auth.authenticate(fb_uid=fb_user['uid'])
+            if user:
+                request.user = user
 
         return None

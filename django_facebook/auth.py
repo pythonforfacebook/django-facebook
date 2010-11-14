@@ -6,12 +6,6 @@ class FacebookBackend(ModelBackend):
     def authenticate(self, fb_uid=None):
         """ If we receive a facebook uid then the cookie has already been validated. """
         if fb_uid:
-          user = User.objects.get_or_create(username=fb_uid)
+          user, created = User.objects.get_or_create(username=fb_uid)
           return user
         return None
-
-    def get_user(self, user_id):
-        try:
-            return User.objects.get(pk=user_id)
-        except User.DoesNotExist:
-            return None

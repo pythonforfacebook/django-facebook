@@ -33,8 +33,7 @@
 
 <h6>Actions</h6>
 <table>
-  <tr><td>FB.login</td><td><fb:login-button perms="read_stream,user_events,user_groups,user_photo_video_tags"></fb:login-button></td></tr>
-  <tr><td>FB.login.autologoutlink</td><td><fb:login-button autologoutlink="true"></fb:login-button></td></tr>
+  <tr><td>FB.login</td><td><fb:login-button autologoutlink="true"></fb:login-button></td></tr>
   <tr><td>accounts.login</td><td><a href="{% url auth_login %}">Log in to Django</a></td></tr>
   <tr><td>accounts.logout</td><td><a href="{% url auth_logout %}">Log out of Django</a></td></tr>
 </table>

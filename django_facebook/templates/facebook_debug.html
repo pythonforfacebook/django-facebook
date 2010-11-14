@@ -23,11 +23,11 @@
 {% block content %}
 <h6>States</h6>
 <table>
-  <tr><td>request.user</td><td>{{ user }}</td></tr>
-  <tr><td>request.facebook.user</td><td>{{ facebook.user }}</td></tr>
-  <tr><td>request.COOKIES</td><td>{{ cookies }}</td></tr>
-  <tr><td>request.facebook.user['access_token']</td><td>{{ facebook.user.access_token }}</td></tr>
-  <tr><td>request.facebook.uid</td><td>{{ facebook.uid }}</td></tr>
+  <tr><td>request.user</td><td>{{ request.user }}</td></tr>
+  <tr><td>request.facebook.user</td><td>{{ request.facebook.user }}</td></tr>
+  <tr><td>request.COOKIES</td><td>{{ request.COOKIES }}</td></tr>
+  <tr><td>request.facebook.user['access_token']</td><td>{{ request.facebook.user.access_token }}</td></tr>
+  <tr><td>request.facebook.uid</td><td>{{ request.facebook.uid }}</td></tr>
   <tr><td>FB.getLoginStatus</td><td><span id="getLoginStatus">Loading ...</span></td></tr>
 </table>
 

@@ -8,7 +8,7 @@ def facebook_load():
 
 @register.tag
 def facebook_init(parser, token):
-    nodelist = parser.parse(('end_facebook_init',))
+    nodelist = parser.parse(('endfacebook',))
     parser.delete_first_token()
     return FacebookNode(nodelist)
 

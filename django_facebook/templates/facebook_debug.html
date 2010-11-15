@@ -1,40 +1,26 @@
 {% extends 'base.html' %}
 
 {% block facebook_code %}
-  FB.Event.subscribe('auth.logout', function(response) {
-    window.location.reload()
-  });
-
   FB.getLoginStatus(function(response) {
     var update = $('#getLoginStatus')
     if (response.session) {
       update.text('response.session.uid = ' + response.session.uid)
     } else {
-      update.text('response.session = null')
-      
-      FB.Event.subscribe('auth.login', function(response) {
-        window.location.reload()
-      });
+      update.text('response.session = null')     
     }
   });
 {% endblock %}
 
 
 {% block content %}
-<h6>States</h6>
 <table>
   <tr><td>request.user</td><td>{{ request.user }}</td></tr>
+  <tr><td>request.facebook.uid</td><td>{{ request.facebook.uid }}</td></tr>
   <tr><td>request.facebook.user</td><td>{{ request.facebook.user }}</td></tr>
   <tr><td>request.COOKIES</td><td>{{ request.COOKIES }}</td></tr>
-  <tr><td>request.facebook.user['access_token']</td><td>{{ request.facebook.user.access_token }}</td></tr>
-  <tr><td>request.facebook.uid</td><td>{{ request.facebook.uid }}</td></tr>
   <tr><td>FB.getLoginStatus</td><td><span id="getLoginStatus">Loading ...</span></td></tr>
 </table>
 
-<h6>Actions</h6>
-<table>
-  <tr><td>FB.login</td><td><fb:login-button autologoutlink="true"></fb:login-button></td></tr>
-  <tr><td>accounts.login</td><td><a href="{% url auth_login %}">Log in to Django</a></td></tr>
-  <tr><td>accounts.logout</td><td><a href="{% url auth_logout %}">Log out of Django</a></td></tr>
-</table>
+<fb:login-button autologoutlink="true"></fb:login-button>
+
 {% endblock %}

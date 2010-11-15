@@ -25,7 +25,7 @@ def facebook_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME):
         return decorator
 
     actual_decorator = _passes_test(
-        lambda r: r.facebook.uid,
+        lambda r: r.facebook,
         redirect_field_name=redirect_field_name
     )
 

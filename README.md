@@ -79,11 +79,11 @@ If a user accesses your site with a valid facebook cookie, a user
 account is automatically created or retrieved based on the facebook UID.
 
 To use the backend, add this to your AUTHENTICATION_BACKENDS:
-    'django.contrib.auth.backends.ModelBackend'
+    'django_facebook.auth.FacebookBackend'
   
 Don't forget to include the default backend if you want to use standard
 logins for users as well:
-    'django_facebook.auth.FacebookBackend'
+    'django.contrib.auth.backends.ModelBackend'
 
 
 Decorators:

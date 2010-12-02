@@ -4,7 +4,7 @@ setup(
     name='django-facebook',
     version='0.1',
     description='Replace Django Authentication with Facebook',
-    long_description=open('README').read(),
+    long_description=open('README.md').read(),
     author='Aidan Lister',
     author_email='aidan@php.net',
     url='http://github.com/aidanlister/django-facebook',

@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib import auth
 import facebook
+import datetime
+
 
 class DjangoFacebook(object):
     """ Simple accessor object for the Facebook user. """
@@ -60,6 +62,8 @@ class FacebookMiddleware(object):
         if fb_user and request.user.is_anonymous():
             user = auth.authenticate(fb_uid=fb_user['uid'])
             if user:
+                user.last_login = datetime.datetime.now()
+                user.save()
                 request.user = user
 
         return None

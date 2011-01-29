@@ -12,6 +12,7 @@ the following settings:
 
     # Custom settings
     FACEBOOK_PREPOPULATE_USER_DATA = False
+    FACEBOOK_EXTENDED_PERMISSIONS = []  # Ex: ['email', 'user_birthday']
     
     # Optionally for debugging
     FACEBOOK_DEBUG_COOKIE = ''
@@ -37,6 +38,13 @@ asynchronously load the facebook javascript SDK. The ``facebook_init``
 tag calls ``FB.init`` with your configured application settings. It is
 best to put your facebook related javascript into the ``facebook_code``
 region so that it can be called by the asynchronous handler.
+
+You may find the ``facebook_perms`` tag useful, which takes the setting
+in FACEBOOK_EXTENDED_PERMISSIONS and prints the extended permissions out
+in a comma-separated list.
+
+    <fb:login-button show-faces="false" width="200" max-rows="1"
+      perms="{% facebook_perms %}"></fb:login-button>
 
 
 A helpful debugging page to view the status of your facebook login can

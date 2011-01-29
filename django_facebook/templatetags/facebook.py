@@ -2,6 +2,8 @@ from django import template
 from django.conf import settings
 register = template.Library()
 
+FACEBOOK_EXTENDED_PERMISSIONS = getattr(settings, 'FACEBOOK_EXTENDED_PERMISSIONS', [])
+
 @register.inclusion_tag('tags/facebook_load.html')
 def facebook_load():
     pass
@@ -30,3 +32,7 @@ class FacebookNode(template.Node):
         custom_context['code'] = code
         custom_context['app_id'] = self.app_id
         return t.render(context)
+
+@register.simple_tag
+def facebook_perms():
+    return ",".join(FACEBOOK_EXTENDED_PERMISSIONS)

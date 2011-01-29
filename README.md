@@ -9,6 +9,9 @@ the following settings:
     FACEBOOK_APP_ID = ''
     FACEBOOK_API_KEY = ''
     FACEBOOK_SECRET_KEY = ''
+
+    # Custom settings
+    FACEBOOK_PREPOPULATE_USER_DATA = False
     
     # Optionally for debugging
     FACEBOOK_DEBUG_COOKIE = ''

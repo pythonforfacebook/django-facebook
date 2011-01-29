@@ -60,7 +60,7 @@ class FacebookMiddleware(object):
         request.facebook = DjangoFacebook(fb_user) if fb_user else None
 
         if fb_user and request.user.is_anonymous():
-            user = auth.authenticate(fb_uid=fb_user['uid'])
+            user = auth.authenticate(fb_uid=fb_user['uid'], fb_object=request.facebook)
             if user:
                 user.last_login = datetime.datetime.now()
                 user.save()

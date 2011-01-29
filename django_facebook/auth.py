@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
 
 FACEBOOK_PREPOPULATE_USER_DATA = getattr(settings, 'FACEBOOK_PREPOPULATE_USER_DATA', None)
+FACEBOOK_EXTENDED_PERMISSIONS = getattr(settings, 'FACEBOOK_EXTENDED_PERMISSIONS', None)
 
 class FacebookBackend(ModelBackend):
     """ Authenticate a facebook user. """
@@ -17,6 +18,10 @@ class FacebookBackend(ModelBackend):
                 fb_user = fb_object.graph.get_object(u'me')
                 user.first_name = fb_user['first_name']
                 user.last_name  = fb_user['last_name']
+
+                if 'email' in FACEBOOK_EXTENDED_PERMISSIONS and 'email' in fb_user:
+                    user.email = fb_user['email']
+                    
                 user.save()
 
             return user

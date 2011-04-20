@@ -36,7 +36,7 @@ class FacebookDebugTokenMiddleware(object):
             'uid':settings.FACEBOOK_DEBUG_UID,
             'access_token':settings.FACEBOOK_DEBUG_TOKEN,
         }
-        request.facebook = Facebook(user)
+        request.facebook = DjangoFacebook(user)
         return None
 
 

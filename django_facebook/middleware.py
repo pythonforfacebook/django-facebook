@@ -22,7 +22,7 @@ class FacebookDebugCanvasMiddleware(object):
     def process_request(self, request):
         cp = request.POST.copy()
         request.POST = cp
-        request.POST['signed_request'] = settings.FACEBOOK_SIGNED_REQ
+        request.POST['signed_request'] = settings.FACEBOOK_DEBUG_SIGNEDREQ
         return None
 
 
@@ -78,6 +78,7 @@ class FacebookMiddleware(object):
         return fb_user
 
     def get_fb_user_canvas(self, request):
+        """ Attempt to find a user using a signed_request (canvas). """
         fb_user = None
         if request.POST.get('signed_request'):
             signed_request = request.POST["signed_request"]
@@ -95,7 +96,7 @@ class FacebookMiddleware(object):
     def get_fb_user(self, request):
         """ Return a dict containing the facebook user details, if found.
 
-        The dict should contain the auth method, uid, access_token and any
+        The dict must contain the auth method, uid, access_token and any
         other information that was made available by the authentication
         method.
         """
@@ -108,11 +109,25 @@ class FacebookMiddleware(object):
         return fb_user
 
     def process_request(self, request):
+        """ Add `facebook` into the request context and attempt to authenticate the user.
+
+        If no user was found, request.facebook will be None. Otherwise it will contain
+        a DjangoFacebook object containing:
+          uid: The facebook users UID
+          user: Any user information made available as part of the authentication process
+          graph: A GraphAPI object connected to the current user.
+
+        An attempt to authenticate the user is also made. The fb_uid and fb_graphtoken
+        parameters are passed and are available for any AuthenticationBackends.
+
+        The user however is not "logged in" via login() as facebook sessions are ephemeral
+        and must be revalidated on every request.
+        """
         fb_user = self.get_fb_user(request)
         request.facebook = DjangoFacebook(fb_user) if fb_user else None
 
         if fb_user and request.user.is_anonymous():
-            user = auth.authenticate(fb_uid=fb_user['uid'], fb_object=request.facebook)
+            user = auth.authenticate(fb_uid=fb_user['uid'], fb_graphtoken=fb_user['access_token'])
             if user:
                 user.last_login = datetime.datetime.now()
                 user.save()

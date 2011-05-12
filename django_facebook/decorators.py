@@ -13,7 +13,6 @@ def canvas_only(function=None):
     """
     def _dec(view_func):
         def _view(request, *args, **kwargs):
-
             # Make sure we're receiving a signed_request from facebook
             if not request.POST.get('signed_request'):
                 return HttpResponseBadRequest()
@@ -27,7 +26,8 @@ def canvas_only(function=None):
 
             # If the user has not authorised redirect them
             if not data.get('user_id'):
-                auth_url = facebook.auth_url(settings.FACEBOOK_APP_ID, settings.FACEBOOK_CANVAS_PAGE)
+                scope = getattr(settings, 'FACEBOOK_EXTENDED_PERMISSIONS', None)
+                auth_url = facebook.auth_url(settings.FACEBOOK_APP_ID, settings.FACEBOOK_CANVAS_PAGE, scope)
                 markup = '<script type="text/javascript">top.location.href="%s"</script>' % auth_url
                 return HttpResponse(markup)
 

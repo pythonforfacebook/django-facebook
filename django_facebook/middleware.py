@@ -105,7 +105,7 @@ class FacebookMiddleware(object):
         for method in methods:
             fb_user = getattr(self, method)(request)
             if (fb_user):
-                continue
+                break
         return fb_user
 
     def process_request(self, request):

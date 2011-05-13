@@ -82,10 +82,7 @@ class FacebookMiddleware(object):
         fb_user = None
         if request.POST.get('signed_request'):
             signed_request = request.POST["signed_request"]
-            try:
-                data = facebook.parse_signed_request(signed_request, settings.FACEBOOK_SECRET_KEY)
-            except ValueError:
-                pass
+            data = facebook.parse_signed_request(signed_request, settings.FACEBOOK_SECRET_KEY)
             if data and data.get('user_id'):
                 fb_user = data['user']
                 fb_user['method'] = 'canvas'

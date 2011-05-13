@@ -15,14 +15,13 @@ def canvas_only(function=None):
         def _view(request, *args, **kwargs):
             # Make sure we're receiving a signed_request from facebook
             if not request.POST.get('signed_request'):
-                return HttpResponseBadRequest()
+                return HttpResponseBadRequest('<h1>400 Bad Request</h1><p>Missing <em>signed_request</em>.</p>')
 
             # Parse the request and ensure it's valid
-            try:
-                signed_request = request.POST["signed_request"]
-                data = facebook.parse_signed_request(signed_request, settings.FACEBOOK_SECRET_KEY)
-            except ValueError:
-                return HttpResponseBadRequest()
+            signed_request = request.POST["signed_request"]
+            data = facebook.parse_signed_request(signed_request, settings.FACEBOOK_SECRET_KEY)
+            if data is False:
+                return HttpResponseBadRequest('<h1>400 Bad Request</h1><p>Malformed <em>signed_request</em>.</p>')
 
             # If the user has not authorised redirect them
             if not data.get('user_id'):

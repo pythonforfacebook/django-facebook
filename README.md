@@ -41,8 +41,8 @@ best to put your facebook related javascript into the ``facebook_code``
 region so that it can be called by the asynchronous handler.
 
 You may find the ``facebook_perms`` tag useful, which takes the setting
-in FACEBOOK_PERMISSIONS and prints the extended permissions out
-in a comma-separated list.
+in FACEBOOK_PERMS and prints the extended permissions out in a
+comma-separated list.
 
     <fb:login-button show-faces="false" width="200" max-rows="1"
       perms="{% facebook_perms %}"></fb:login-button>

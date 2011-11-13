@@ -7,7 +7,7 @@ setup(
     long_description=open('README.md').read(),
     author='Aidan Lister',
     author_email='aidan@php.net',
-    url='http://github.com/aidanlister/django-facebook',
+    url='http://github.com/pythonforfacebook/django-facebook',
     license='MPL',
     packages=find_packages(),
     include_package_data=True,

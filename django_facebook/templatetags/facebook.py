@@ -7,11 +7,13 @@ register = template.Library()
 def facebook_load():
     pass
 
+
 @register.tag
 def facebook_init(parser, token):
     nodelist = parser.parse(('endfacebook',))
     parser.delete_first_token()
     return FacebookNode(nodelist)
+
 
 class FacebookNode(template.Node):
     """ Allow code to be added inside the facebook asynchronous closure. """
@@ -19,9 +21,10 @@ class FacebookNode(template.Node):
         try:
             app_id = settings.FACEBOOK_APP_ID
         except AttributeError:
-            raise template.TemplateSyntaxError, "%r tag requires FACEBOOK_APP_ID to be configured." \
+            raise template.TemplateSyntaxError, "%r tag requires " \
+                "FACEBOOK_APP_ID to be configured." \
                 % token.contents.split()[0]
-        self.app_id   = app_id
+        self.app_id = app_id
         self.nodelist = nodelist
 
     def render(self, context):
@@ -31,6 +34,7 @@ class FacebookNode(template.Node):
         custom_context['code'] = code
         custom_context['app_id'] = self.app_id
         return t.render(context)
+
 
 @register.simple_tag
 def facebook_perms():

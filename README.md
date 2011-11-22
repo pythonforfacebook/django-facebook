@@ -7,7 +7,6 @@ Simply add ``django_facebook`` to your INSTALLED_APPS and configure
 the following settings:
 
     FACEBOOK_APP_ID = ''
-    FACEBOOK_API_KEY = ''
     FACEBOOK_SECRET_KEY = ''
 
     # Optionally set default permissions to request, e.g: ['email', 'user_about_me']

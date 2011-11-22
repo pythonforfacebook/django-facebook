@@ -112,7 +112,7 @@ Decorators:
 logged in with facebook and has access to the facebook graph. It is a replacement
 for ``@login_required`` if you are not using the facebook authentication backend.
 
-``@canvas_required`` is a decorater to ensure the view is being loaded with
+``@canvas_only`` is a decorater to ensure the view is being loaded with
 a valid ``signed_request`` via Facebook Canvas. If signed_request is not found, the
 decorator will return a HTTP 400. If signed_request is found but the user has not
 authorised, the decorator will redirect the user to authorise.

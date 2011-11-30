@@ -3,10 +3,14 @@
 {% block facebook_code %}
   FB.getLoginStatus(function(response) {
     var update = $('#getLoginStatus')
-    if (response.session) {
-      update.text('response.session.uid = ' + response.session.uid)
+    if (response.status === 'connected') {
+      var uid = response.authResponse.userID;
+      var accessToken = response.authResponse.accessToken;
+      update.text('userID = ' + response.session.uid + ', accessToken = ' + accessToken);
+    } else if (response.status === 'not_authorized') {
+        update.text('App is not authorized');
     } else {
-      update.text('response.session = null')     
+      update.text('No fb user found');
     }
   });
 {% endblock %}

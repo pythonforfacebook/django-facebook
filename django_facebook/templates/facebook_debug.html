@@ -1,10 +1,11 @@
 <html>
 <head>
 </head>
-
 <body>
+
 <table>
   <tr><td>request.user</td><td>{{ request.user|pprint }}</td></tr>
+  <tr><td>request.facebook.uid</td><td>{{ request.facebook.uid }}</td></tr>
   <tr><td>request.COOKIES</td><td><pre>{{ request.COOKIES|pprint }}</pre></td></tr>
   <tr><td>request.POST</td><td><pre>{{ request.POST|pprint }}</pre></td></tr>
   <tr><td>FB.getLoginStatus</td><td><span id="login-status">No fb user found</span></td></tr>

@@ -1,27 +1,47 @@
-{% extends 'base.html' %}
+<html>
+<head>
+</head>
+<body>
 
-{% block facebook_code %}
-  FB.getLoginStatus(function(response) {
-    var update = $('#getLoginStatus')
-    if (response.session) {
-      update.text('response.session.uid = ' + response.session.uid)
-    } else {
-      update.text('response.session = null')     
-    }
-  });
-{% endblock %}
-
-
-{% block content %}
 <table>
-  <tr><td>request.user</td><td>{{ request.user }}</td></tr>
+  <tr><td>request.user</td><td>{{ request.user|pprint }}</td></tr>
   <tr><td>request.facebook.uid</td><td>{{ request.facebook.uid }}</td></tr>
-  <tr><td>request.facebook.user</td><td>{{ request.facebook.user }}</td></tr>
   <tr><td>request.COOKIES</td><td><pre>{{ request.COOKIES|pprint }}</pre></td></tr>
   <tr><td>request.POST</td><td><pre>{{ request.POST|pprint }}</pre></td></tr>
-  <tr><td>FB.getLoginStatus</td><td><span id="getLoginStatus">Loading ...</span></td></tr>
+  <tr><td>FB.getLoginStatus</td><td><span id="login-status">No fb user found</span></td></tr>
 </table>
 
 <fb:login-button autologoutlink="true"></fb:login-button>
 
-{% endblock %}
+{% load facebook %}
+{% facebook_init %}
+  var update = document.getElementById('login-status');
+
+  FB.getLoginStatus(function(response) {
+    if (response) {
+      if (response.status === 'connected') {
+        update.innerHTML = 'response: ' + JSON.stringify(response);
+      } else if (response.status === 'not_authorized') {
+        update.innerHTML = 'App is not authorized';
+      } else {
+        update.innerHTML = 'No fb user found';
+      }
+    } else {
+      update.innerHTML = 'reponse is: ' + response;
+    }
+  });
+  function loggedIn(response) {
+    window.location.reload()
+  }
+  function loggedOut(response) {
+    window.location.reload()
+  }
+  
+  FB.Event.subscribe('auth.login', loggedIn);
+  FB.Event.subscribe('auth.logout', loggedOut);
+  
+{% endfacebook %}
+{% facebook_load %}
+
+</body>
+</html>

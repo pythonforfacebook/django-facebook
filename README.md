@@ -10,7 +10,7 @@ the following settings:
     FACEBOOK_SECRET_KEY = ''
 
     # Optionally set default permissions to request, e.g: ['email', 'user_about_me']
-    FACEBOOK_PERMS = []
+    FACEBOOK_SCOPE = []
     
     # And for local debugging, use one of the debug middlewares and set:
     FACEBOOK_DEBUG_TOKEN = ''
@@ -39,12 +39,12 @@ tag calls ``FB.init`` with your configured application settings. It is
 best to put your facebook related javascript into the ``facebook_code``
 region so that it can be called by the asynchronous handler.
 
-You may find the ``facebook_perms`` tag useful, which takes the setting
-in FACEBOOK_PERMS and prints the extended permissions out in a
+You may find the ``facebook_scope`` tag useful, which takes the setting
+in FACEBOOK_SCOPE and prints the extended permissions out in a
 comma-separated list.
 
     <fb:login-button show-faces="false" width="200" max-rows="1"
-      perms="{% facebook_perms %}"></fb:login-button>
+      scope="{% facebook_scope %}"></fb:login-button>
 
 
 A helpful debugging page to view the status of your facebook login can

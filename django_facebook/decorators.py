@@ -32,7 +32,7 @@ def canvas_only(function=None):
 
             # If the user has not authorised redirect them
             if not data.get('user_id'):
-                scope = getattr(settings, 'FACEBOOK_PERMS', None)
+                scope = getattr(settings, 'FACEBOOK_SCOPE', None)
                 auth_url = facebook.auth_url(settings.FACEBOOK_APP_ID,
                                              settings.FACEBOOK_CANVAS_PAGE,
                                              scope)

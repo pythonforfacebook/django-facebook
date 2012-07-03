@@ -37,5 +37,5 @@ class FacebookNode(template.Node):
 
 
 @register.simple_tag
-def facebook_perms():
-    return ",".join(getattr(settings, 'FACEBOOK_PERMS', []))
+def facebook_scope():
+    return ",".join(getattr(settings, 'FACEBOOK_SCOPE', []))

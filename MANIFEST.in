@@ -1,1 +1,3 @@
 recursive-include django_facebook/templates *.html
+include LICENSE.txt
+include README.md

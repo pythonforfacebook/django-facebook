@@ -80,8 +80,10 @@ class FacebookMiddleware(object):
     """
     def get_fb_user_cookie(self, request):
         """ Attempt to find a facebook user using a cookie. """
-        fb_user = facebook.get_user_from_cookie(request.COOKIES,
-            settings.FACEBOOK_APP_ID, settings.FACEBOOK_SECRET_KEY)
+        fb_user = facebook.get_user_from_cookie(
+            request.COOKIES,
+            settings.FACEBOOK_APP_ID,
+            settings.FACEBOOK_SECRET_KEY)
         if fb_user:
             fb_user['method'] = 'cookie'
         return fb_user

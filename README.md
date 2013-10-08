@@ -18,6 +18,9 @@ the following settings:
     FACEBOOK_DEBUG_COOKIE = ''
     FACEBOOK_DEBUG_SIGNEDREQ = ''
 
+    # Optionally throw exceptions instead of returning HTTP errors on signed request issues
+    FACEBOOK_RAISE_SR_EXCEPTIONS = True
+
 
 Templates:
 ---------

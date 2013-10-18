@@ -23,8 +23,6 @@ def canvas_only(function=None):
         def _view(request, *args, **kwargs):
             # Make sure we're receiving a signed_request from facebook
             if not request.POST.get('signed_request'):
-                from django.conf import settings
-
                 if hasattr(settings, 'FACEBOOK_RAISE_SR_EXCEPTIONS') \
                    and settings.FACEBOOK_RAISE_SR_EXCEPTIONS:
                     raise MissingSignedRequestException(
@@ -80,8 +78,6 @@ def facebook_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME):
     def _passes_test(test_func, login_url=None,
                      redirect_field_name=REDIRECT_FIELD_NAME):
         if not login_url:
-            from django.conf import settings
-
             login_url = settings.LOGIN_URL
 
         def decorator(view_func):

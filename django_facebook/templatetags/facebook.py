@@ -21,9 +21,8 @@ class FacebookNode(template.Node):
         try:
             app_id = settings.FACEBOOK_APP_ID
         except AttributeError:
-            raise template.TemplateSyntaxError, "%r tag requires " \
-                "FACEBOOK_APP_ID to be configured." \
-                % token.contents.split()[0]
+            raise template.TemplateSyntaxError(
+                "facebook_init tag requires FACEBOOK_APP_ID.")
         self.app_id = app_id
         self.nodelist = nodelist
 

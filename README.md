@@ -1,6 +1,11 @@
 Facebook integration for your Django website
 =============================================
 
+**This library is deprecated.** For Facebook integration, please use
+[facebook-sdk](https://github.com/mobolic/facebook-sdk). For questions about
+integrating Facebook and Django, please visit [the PythonforFacebook Google
+Group](https://groups.google.com/forum/#!forum/pythonforfacebook).
+
 Installation:
 ------------
 Simply add ``django_facebook`` to your INSTALLED_APPS and configure
